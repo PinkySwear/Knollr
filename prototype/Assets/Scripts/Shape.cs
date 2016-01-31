@@ -45,6 +45,7 @@ public class Shape : MonoBehaviour {
 //		Debug.Log (transform.rotation.eulerAngles.z);
 		xDeg = transform.rotation.eulerAngles.y;
 		myColor = this.gameObject.GetComponent<Renderer> ().material.color;
+		valid = false;
 	}
 	
 	// Update is called once per frame
@@ -97,10 +98,15 @@ public class Shape : MonoBehaviour {
 		if (rotating && !dragging) {
 //			Debug.Log (xDeg);
 			xDeg += Input.GetAxis("Mouse X") * 3;
+//			xDeg += Mathf.Sqrt (Input.GetAxis ("Mouse X") * 3 * Input.GetAxis ("Mouse X") * 3 +
+//				Input.GetAxis ("Mouse Y") * 3 * Input.GetAxis ("Mouse Y") * 3) * Mathf.Sign(Input.GetAxis("Mouse X"));
+
 			//xDeg += Input.GetAxis("Mouse Y") * 3;
 			Quaternion fromRotation = transform.rotation;
 			Quaternion toRotation = Quaternion.Euler(270,xDeg, 0);
 			transform.rotation = Quaternion.Lerp(fromRotation,toRotation,Time.deltaTime * 5);
+			valid = false;
+
 		}
 //		Debug.Log (valid);
 

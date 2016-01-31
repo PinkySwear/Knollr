@@ -9,16 +9,27 @@ using UnityEditor.Audio;
 
 		public int targetLevel;
 
+	public GameObject globalThing;
+
 
 		public AudioSource mainCameraAudio;
 
 		void Start(){
-	
+		if (globalThing == null) {
+			globalThing = GameObject.Find ("Global");
 		}
+	}
 
 		public void LoadPrevious(){
 			Debug.Log("Level load requested for " + name); 
 			SceneManager.LoadScene ((SceneManager.GetActiveScene().buildIndex - 1));
+		}
+			
+		public void LoadNext () {
+			if(globalThing.GetComponent<GlobalControl> ().lastLevelBuildIndex <= 6)
+				SceneManager.LoadScene ((globalThing.GetComponent<GlobalControl> ().lastLevelBuildIndex + 1));
+			else
+			SceneManager.LoadScene ("Menu");
 		}
 
 		public void Restart(){

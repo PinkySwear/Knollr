@@ -1,18 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class scoreManager : MonoBehaviour {
 
     public GameObject scoreBoard;
     public GameObject canvas;
     public Shape[] shapes;
+	public GameObject globalThing;
 
     bool wait;
     public int Gameclicker = 128;
 
     // Use this for initialization
     void Start () {
+		if (globalThing == null) {
+			globalThing = GameObject.Find ("Global");
+		}
+		Gameclicker += (globalThing.GetComponent<GlobalControl> ().lastLevelTimeLeft);
+
     	if (Gameclicker % 60 > 9){
         	scoreBoard.GetComponent<Text>().text = (Gameclicker / 60) + ":" + (Gameclicker % 60);
         }
@@ -41,7 +48,7 @@ public class scoreManager : MonoBehaviour {
         }
         else {
         	// EDIT THIS: When it reaches zero move to loser/lost level
-        	Gameclicker = 0;
+			SceneManager.LoadScene("Lose_Scene");
         }
 		if (Gameclicker % 60 > 9){
         	scoreBoard.GetComponent<Text>().text = (Gameclicker / 60) + ":" + (Gameclicker % 60);

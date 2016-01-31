@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 
 public class Board: MonoBehaviour {
@@ -7,18 +8,40 @@ public class Board: MonoBehaviour {
 	public GameObject bunch;
 	public Bounds aboveBounds;
 	public Shape[] shapes;
+	public GameObject globalThing;
+	public GameObject thingWithTimer;
 
 
 	// Use this for initialization
 	void Start () {
 		aboveBounds = GetComponent<BoxCollider> ().bounds;
 		shapes = bunch.GetComponentsInChildren<Shape> ();
-
+		if (globalThing == null) {
+			globalThing = GameObject.Find ("Global");
+		}
+			globalThing.GetComponent<GlobalControl> ().lastLevelTotalTime = 
+				thingWithTimer.GetComponent<scoreManager> ().Gameclicker;
+			globalThing.GetComponent<GlobalControl> ().lastLevelBuildIndex = 
+				SceneManager.GetActiveScene ().buildIndex;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 //		Debug.Log (calculateCoverage());
+		float percent = calculateCoverage ();
+		if (globalThing == null) {
+			globalThing = GameObject.Find ("Global");
+		} else {
+			globalThing.GetComponent<GlobalControl> ().lastLevelScore = percent;
+			if (percent > 10f) {
+				globalThing.GetComponent<GlobalControl> ().lastLevelTimeLeft = 
+				thingWithTimer.GetComponent<scoreManager> ().Gameclicker;
+				globalThing.GetComponent<GlobalControl> ().lastLevelBuildIndex = 
+					SceneManager.GetActiveScene ().buildIndex;
+				SceneManager.LoadScene("Win_Scene");
+			}
+		}
+
 	}
 
 
