@@ -17,7 +17,8 @@ public class Shape : MonoBehaviour {
 	public bool isTriangle;
 	public float area;
 	public bool triggered;
-
+	public AudioClip placed;
+	public AudioClip powerup;
 
     public bool hasExtra;
 	public Board board;
@@ -112,12 +113,13 @@ public class Shape : MonoBehaviour {
 
 //		Color currentColor = this.gameObject.GetComponent<Renderer> ().material.color;
 //		Color fromColor = this.gameObject.GetComponent<Renderer> ().material.color;
-		this.gameObject.GetComponent<Renderer> ().material.color = Color.Lerp (this.gameObject.GetComponent<Renderer> ().material.color, myColor, Time.deltaTime*5);
+//		this.gameObject.GetComponent<Renderer> ().material.color = Color.Lerp (this.gameObject.GetComponent<Renderer> ().material.color, myColor, Time.deltaTime*5);
 	}
 
 	void flashColor() {
 //		Debug.Log ("flash");
-		this.gameObject.GetComponent<Renderer> ().material.color = Color.white;
+//		this.gameObject.GetComponent<Renderer> ().material.color = Color.white;
+//		AudioSource.PlayClipAtPoint(powerup, transform.position);
 	}
 
 
@@ -127,6 +129,7 @@ public class Shape : MonoBehaviour {
 
 	void OnMouseUp() {
 		dragging = false;
+		AudioSource.PlayClipAtPoint(placed, transform.position, 10f);
 	}
 
 	void OnMouseEnter() {

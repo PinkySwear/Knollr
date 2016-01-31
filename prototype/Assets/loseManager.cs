@@ -15,9 +15,7 @@ public class loseManager : MonoBehaviour {
 		} else {
 			statShower.GetComponent<Text> ().text = 
 				((globalThing.GetComponent<GlobalControl> ().lastLevelScore) + "%"
-					+ " in " + (globalThing.GetComponent<GlobalControl> ().lastLevelTotalTime));
-			Debug.Log (globalThing.GetComponent<GlobalControl> ().lastLevelScore);
-			Debug.Log (globalThing.GetComponent<GlobalControl> ().lastLevelTotalTime);
+					+ " in " + (convertTime( (globalThing.GetComponent<GlobalControl> ().lastLevelTotalTime))));
 		}
 	}
 	
@@ -28,9 +26,18 @@ public class loseManager : MonoBehaviour {
 		} else {
 			statShower.GetComponent<Text> ().text = 
 				((globalThing.GetComponent<GlobalControl> ().lastLevelScore) + "%"
-					+ " in " + (globalThing.GetComponent<GlobalControl> ().lastLevelTotalTime));
-			Debug.Log (globalThing.GetComponent<GlobalControl> ().lastLevelScore);
-			Debug.Log (globalThing.GetComponent<GlobalControl> ().lastLevelTotalTime);
+					+ " in " + (convertTime( (globalThing.GetComponent<GlobalControl> ().lastLevelTotalTime))));
 		}
+	}
+
+	private string convertTime(int rawTime) {
+		string timeVal;
+		if (rawTime % 60 > 9){
+			timeVal = (rawTime / 60) + ":" + (rawTime % 60);
+		}
+		else { 
+			timeVal = (rawTime / 60) + ":0" + (rawTime % 60);
+		}
+		return timeVal;
 	}
 }

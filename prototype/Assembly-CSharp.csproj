@@ -48,6 +48,7 @@
      <Compile Include="Assets\GlobalControl.cs" />
      <Compile Include="Assets\Scripts\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Board.cs" />
+     <Compile Include="Assets\Scripts\ColorChange.cs" />
      <Compile Include="Assets\Scripts\RealLevelManager.cs" />
      <Compile Include="Assets\Scripts\Shape.cs" />
      <Compile Include="Assets\Scripts\Timer.cs" />

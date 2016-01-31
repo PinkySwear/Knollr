@@ -8,6 +8,7 @@ public class winManager : MonoBehaviour {
 	public GameObject statShower;
 	public GameObject statShower2;
 	public GameObject globalThing;
+	public AudioClip finished;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +21,7 @@ public class winManager : MonoBehaviour {
 			statShower2.GetComponent<Text> ().text = 
 					"+" + (convertTime( (globalThing.GetComponent<GlobalControl> ().lastLevelTimeLeft))) + " for next round";
 		}
+		AudioSource.PlayClipAtPoint(finished, transform.position);
 	}
 
 	// Update is called once per frame

@@ -33,7 +33,7 @@ public class Board: MonoBehaviour {
 			globalThing = GameObject.Find ("Global");
 		} else {
 			globalThing.GetComponent<GlobalControl> ().lastLevelScore = percent;
-			if (percent > 10f) {
+			if (percent > 70f) {
 				globalThing.GetComponent<GlobalControl> ().lastLevelTimeLeft = 
 				thingWithTimer.GetComponent<scoreManager> ().Gameclicker;
 				globalThing.GetComponent<GlobalControl> ().lastLevelBuildIndex = 
@@ -52,7 +52,7 @@ public class Board: MonoBehaviour {
 			if (shapes [i].valid)
 				coveredArea += shapes [i].area;
 		}
-		return (coveredArea / totalArea) * 100f;
+		return ((int)((coveredArea / totalArea) * 100f * 100f) / 100f);
 	}
 
 
