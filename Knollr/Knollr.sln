@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{401BA170-F13D-7B2A-0949-6735DDCCCA5B}") = "Knollr", "Assembly-CSharp.csproj", "{FAA10FEB-3374-7F37-D7B7-4FC84BD0F0E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAA10FEB-3374-7F37-D7B7-4FC84BD0F0E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAA10FEB-3374-7F37-D7B7-4FC84BD0F0E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAA10FEB-3374-7F37-D7B7-4FC84BD0F0E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAA10FEB-3374-7F37-D7B7-4FC84BD0F0E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
