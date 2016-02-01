@@ -27,12 +27,13 @@ public class Shape : MonoBehaviour {
 	public Color myColor;
 	public float size;
 	private Vector3 offset;
+	private Vector3 lockedUp;
 
 
 	// Use this for initialization
 	void Start () {
 		if (isTriangle) {
-			area = 1f / 2f * transform.localScale.x * transform.localScale.y;
+			area = (1f / 2f) * transform.localScale.x * transform.localScale.y;
 		} else {
 			area = transform.localScale.x * transform.localScale.y;
 		}
@@ -53,21 +54,28 @@ public class Shape : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-//		if (Vector3.Angle(transform.forward, Vector3.up) < 0.1f) {
+		this.gameObject.GetComponent<Renderer> ().material.color = myColor;
+//		if (valid) {
+//			this.gameObject.GetComponent<Renderer> ().material.color = myColor;
+//		} else {
+//			this.gameObject.GetComponent<Renderer> ().material.color = new Color(myColor.r + 0.2f, myColor.g, myColor.b);
+//		}
+//
+//		if (valid) {
 //			this.gameObject.GetComponent<Renderer> ().material.color = Color.white;
 //		} else {
 //			this.gameObject.GetComponent<Renderer> ().material.color = myColor;
 //		}
-		if (transform.rotation.x == 0f && transform.rotation.z == 0f) {
-			rb.freezeRotation = true;
-		}
 
 //		Debug.DrawRay (transform.position, transform.forward * 100f, Color.red);
 
-		if (board.aboveBounds.Contains (GetComponent<MeshRenderer> ().bounds.max) &&
-		    board.aboveBounds.Contains (GetComponent<MeshRenderer> ().bounds.min) &&
-			Vector3.Angle(transform.forward, Vector3.up) < 0.1f &&
+//		if ((board.aboveBounds.Contains (GetComponent<MeshRenderer> ().bounds.max) ||
+//			board.aboveBounds.Contains (GetComponent<MeshRenderer> ().bounds.min)) &&
+//			Vector3.Angle(transform.forward, Vector3.up) < 0.1f &&
+//			transform.position.y < -0.6f) {
+
+		if (board.aboveBounds.Contains (transform.position) &&
+			Vector3.Angle(transform.forward, Vector3.up) < 1f &&
 			transform.position.y < -0.6f) {
 			valid = true;
 		} else {
@@ -82,6 +90,7 @@ public class Shape : MonoBehaviour {
 
 		if (!dragging) {
 			lockedRotation = transform.rotation;
+			lockedUp = transform.up;
 		}
 			
 //		if (dragging) {
@@ -100,6 +109,7 @@ public class Shape : MonoBehaviour {
 //		}
 
 		if (dragging) {
+			this.gameObject.GetComponent<Renderer> ().material.color = new Color(myColor.r + 0.1f, myColor.g + 0.1f, myColor.b + 0.1f);
 			transform.position = new Vector3(transform.position.x, -0.5f, transform.position.z);
 
 			screenPoint = Camera.main.WorldToScreenPoint (gameObject.transform.position);
@@ -109,7 +119,8 @@ public class Shape : MonoBehaviour {
 			Vector3 temp = curPos + offset;
 			transform.position = new Vector3 (temp.x, -0.5f, temp.z);
 			gameObject.GetComponent<Rigidbody> ().velocity = new Vector3(0f, 0f, 0f);
-			transform.rotation = lockedRotation;
+//			transform.rotation = lockedRotation;
+			transform.LookAt(transform.position+Vector3.up, lockedUp);
 			valid = false;
 		}
 
@@ -121,6 +132,7 @@ public class Shape : MonoBehaviour {
 		}
 
 		if (rotating && !dragging) {
+			this.gameObject.GetComponent<Renderer> ().material.color = new Color(myColor.r + 0.1f, myColor.g + 0.1f, myColor.b + 0.1f);
 //			Debug.Log (xDeg);
 			xDeg += Input.GetAxis("Mouse X") * 5;
 //			xDeg += Mathf.Sqrt (Input.GetAxis ("Mouse X") * 3 * Input.GetAxis ("Mouse X") * 3 +
@@ -153,7 +165,7 @@ public class Shape : MonoBehaviour {
 		Vector3 curScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 		Vector3 curPos = Camera.main.ScreenToWorldPoint (curScreenPoint);
 		offset = transform.position - curPos;
-		Debug.Log("(" + offset.x + ", " + offset.y + ", " + offset.z + ")");
+//		Debug.Log("(" + offset.x + ", " + offset.y + ", " + offset.z + ")");
     }
 
 	void OnMouseUp() {

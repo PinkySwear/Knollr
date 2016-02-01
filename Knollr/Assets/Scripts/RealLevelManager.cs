@@ -36,12 +36,12 @@ using UnityEngine.Audio;
 		}
 		
 	public void LoadFirstZen () {
-		SceneManager.LoadScene (11);
+		SceneManager.LoadScene (9);
 	}
 
 		public void Restart(){
 			Debug.Log("Restart!"); 
-			SceneManager.LoadScene ((SceneManager.GetActiveScene().buildIndex));
+			SceneManager.LoadScene (globalThing.GetComponent<GlobalControl> ().lastLevelBuildIndex);
 		}
 
 		public void Begin(){

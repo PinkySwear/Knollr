@@ -56,7 +56,11 @@ public class scoreManager : MonoBehaviour {
         }
         else {
         	// EDIT THIS: When it reaches zero move to loser/lost level
-			SceneManager.LoadScene("Lose_Scene");
+			if (globalThing.GetComponent<GlobalControl> ().lastLevelScore > 10) {
+				SceneManager.LoadScene ("Win_Scene");
+			} else {
+				SceneManager.LoadScene ("Lose_Scene");
+			}
         }
 		if (Gameclicker % 60 > 9){
         	scoreBoard.GetComponent<Text>().text = (Gameclicker / 60) + ":" + (Gameclicker % 60);

@@ -14,8 +14,10 @@ public class Board: MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+//		Debug.Log (SceneManager.GetActiveScene ().name);
 		aboveBounds = GetComponent<BoxCollider> ().bounds;
 		shapes = bunch.GetComponentsInChildren<Shape> ();
+
 		if (globalThing == null) {
 			globalThing = GameObject.Find ("Global");
 		}
@@ -33,7 +35,7 @@ public class Board: MonoBehaviour {
 			globalThing = GameObject.Find ("Global");
 		} else {
 			globalThing.GetComponent<GlobalControl> ().lastLevelScore = percent;
-			if (percent > 60f) {
+			if (percent > 99f) {
 				globalThing.GetComponent<GlobalControl> ().lastLevelTimeLeft = 
 				thingWithTimer.GetComponent<scoreManager> ().Gameclicker;
 				globalThing.GetComponent<GlobalControl> ().lastLevelBuildIndex = 
@@ -47,12 +49,20 @@ public class Board: MonoBehaviour {
 
 	public float calculateCoverage() {
 		float coveredArea = 0f;
-		float totalArea = transform.localScale.x * transform.localScale.y;
+		float totalArea = 36f;
 		for (int i = 0; i < shapes.Length; i++) {
 			if (shapes [i].valid)
 				coveredArea += shapes [i].area;
 		}
 		return ((int)((coveredArea / totalArea) * 100f * 100f) / 100f);
+	}
+
+	public float allShapesArea() {
+		float coveredArea = 0f;
+		for (int i = 0; i < shapes.Length; i++) {
+			coveredArea += shapes [i].area;
+		}
+		return coveredArea;
 	}
 
 
